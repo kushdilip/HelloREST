@@ -1,5 +1,6 @@
 package com.mkyong.rest;
 
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -24,6 +25,4 @@ public class HelloWorldService {
 		
 		return Response.status(200).entity(outputString).build();
 	}
-	
-	
 }

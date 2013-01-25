@@ -7,21 +7,56 @@
 	id="WebApp_ID"
 	version="2.5">
 	<display-name>de.vogella.jersey.first</display-name>
+	
+	<welcome-file-list>
+		<welcome-file>welcome-file.jsp</welcome-file>
+	</welcome-file-list>
+	
 	<servlet>
+	<!-- default for rest api -->
 		<servlet-name>Jersey REST Service</servlet-name>
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
 			<param-value>com.mkyong.rest</param-value>
 		</init-param>
+		
+	<!-- for pojo to json mapping -->
 		<init-param>
 			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
 			<param-value>true</param-value>
 		</init-param>
+		
+	<!-- for using jsp through rest -->
+		<init-param>
+			<!--  "Viewable" JSP root is placed in the /WEB-INF/jsp directory.
+				   This means that it's not accessible outside of the web app.
+				   There's no way to construct a URL that can retrieve it. -->
+			<param-name>
+           com.sun.jersey.config.property.JSPTemplatesBasePath
+			</param-name>
+			<param-value>/WEB-INF/jsp</param-value>
+		</init-param>
+		<init-param>
+			<!-- Declare what file type should be accessible thru Jersey
+				   without being interpreted as REST call -->
+			<param-name>
+          com.sun.jersey.config.property.WebPageContentRegex
+			</param-name>
+			<param-value>
+          (/(image|js|css)/?.*)|(/.*\.jsp)|(/WEB-INF/.*\.jsp)|
+          (/WEB-INF/.*\.jspf)|(/.*\.html)|(/favicon\.ico)|
+          (/robots\.txt)
+			</param-value>
+		</init-param>
+		
 		<load-on-startup>1</load-on-startup>
+
 	</servlet>
+	
+	<!-- default mapping -->
 	<servlet-mapping>
 		<servlet-name>Jersey REST Service</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 </web-app>

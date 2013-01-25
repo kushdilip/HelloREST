@@ -16,6 +16,8 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- for rest app using jersey -->
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-server</artifactId>
@@ -34,6 +36,7 @@
 			<version>1.16</version>
 		</dependency>
 		
+		<!-- for parsing json data -->
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-json</artifactId>
@@ -45,14 +48,19 @@
 			<artifactId>jersey-bundle</artifactId>
 			<version>1.16</version>
 		</dependency>
-            
 		
-		<!-- <dependency>
-				<groupId>javax.ws.rs</groupId>
-				<artifactId>jsr311-api</artifactId>
-				<version>1.1.1</version>
-			</dependency> -->
-            
+		<!-- for JSP -->
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>HelloREST</finalName>
@@ -78,6 +86,21 @@
 						</connector>
 					</connectors>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>7.3.Final</version>
+				<executions>
+					<execution>
+						<id>redeploy-and-restart-server</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>hard-deploy</goal>
+							<goal>start</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
